@@ -10,6 +10,7 @@
 // @remove-on-eject-end
 
 var path = require('path');
+var fs = require('fs');
 var autoprefixer = require('autoprefixer');
 var webpack = require('webpack');
 var findCacheDir = require('find-cache-dir');
@@ -33,10 +34,17 @@ var env = getClientEnvironment(publicUrl);
 //Get custom configuration for injecting plugins, presets and loaders
 var customConfig = getCustomConfig(false);
 
+// Define config hook function
+var hook = (config) => config;
+if (process.env.REACT_APP_HOOK_DEV_CONFIG) {
+  var hook_file=path.resolve(fs.realpathSync(process.cwd()), process.env.REACT_APP_HOOK_DEV_CONFIG)
+  console.log('Hook Config with ' + hook_file);
+  var hook=require(hook_file);
+}
 // This is the development configuration.
 // It is focused on developer experience and fast rebuilds.
 // The production configuration is different and lives in a separate file.
-module.exports = {
+module.exports = hook({
   // This makes the bundle appear split into separate modules in the devtools.
   // We don't use source maps here because they can be confusing:
   // https://github.com/facebookincubator/create-react-app/issues/343#issuecomment-237241875
@@ -225,4 +233,4 @@ module.exports = {
     net: 'empty',
     tls: 'empty'
   }
-};
+});

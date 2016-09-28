@@ -10,6 +10,7 @@
 // @remove-on-eject-end
 
 var path = require('path');
+var fs = require('fs');
 var autoprefixer = require('autoprefixer');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -56,10 +57,18 @@ if (env['process.env.NODE_ENV'] !== '"production"') {
   throw new Error('Production builds must have NODE_ENV=production.');
 }
 
+// Define config hook function
+var hook = (config) => config;
+if (process.env.REACT_APP_HOOK_PROD_CONFIG) {
+  var hook_file=path.resolve(fs.realpathSync(process.cwd()), process.env.REACT_APP_HOOK_PROD_CONFIG)
+  console.log('Hook Config with ' + hook_file);
+  var hook=require(hook_file);
+}
+
 // This is the production configuration.
 // It compiles slowly and is focused on producing a fast and minimal bundle.
 // The development configuration is different and lives in a separate file.
-module.exports = {
+module.exports = hook({
   // Don't attempt to continue if there are any errors.
   bail: true,
   // We generate sourcemaps in production. This is slow but gives good results.
@@ -264,4 +273,4 @@ module.exports = {
     net: 'empty',
     tls: 'empty'
   }
-};
+});
