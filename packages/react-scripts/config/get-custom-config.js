@@ -1,21 +1,26 @@
-var customizers = require('./customizers');
+const customizers = require('./customizers');
 
 function getCustomConfig(prod) {
-  var prod = prod || false;
-  var env = env || {};
-  var result = Object
-    .keys(customizers)
-    .reduce(function (finalConfig, customizerKey) {
-      var customizer = customizers[customizerKey];
+  prod = prod || false;
+  const env = {};
+
+  const customizerKeys = customizers.keys();
+
+  customizerKeys.forEach ((customizerKey) => {
+    const value = process.env['REACT_APP_' + customizerKey];
+    env[customizerKey] = value === 'true' || value === 'TRUE';
+  });
+
+  const result = customizerKeys.reduce((finalConfig, customizerKey) => {
+      const customizer = customizers[customizerKey];
       if (customizer.prod === false && prod === true) {
         return finalConfig;
       }
 
-      var envValue = process.env['REACT_APP_' + customizerKey];
-      if (env && envValue && envValue !== 'false') {
+      if (env[customizerKey]) {
         if (customizer.toArray) {
-          var getCustomizer = (prod ? customizer.getProd : customizer.getDev) || customizer.getDev;
-          finalConfig[customizer.toArray].push(getCustomizer());
+          const getCustomizer = (prod ? customizer.getProd : customizer.getDev) || customizer.getDev;
+          finalConfig[customizer.toArray].push(getCustomizer(env));
         }
         finalConfig.values[customizerKey] = customizer.config || true;
       }
