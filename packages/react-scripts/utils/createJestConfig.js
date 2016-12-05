@@ -20,7 +20,7 @@ module.exports = (resolve, rootDir, isEjecting) => {
   const config = {
     collectCoverageFrom: ['src/**/*.{js,jsx}'],
     moduleNameMapper: {
-      '^.+\\.(css|less|scss|sass|styl)$': resolve('config/jest/CSSStub.js'),
+      '^.+\\.(css|less|scss|sass|styl)$': 'identity-obj-proxy',
       '^.+\\.(?!(js|jsx|css|json)$)[^\\.]+$': resolve('config/jest/FileStub.js')
     },
     setupFiles: [resolve('config/polyfills.js')],
