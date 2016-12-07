@@ -20,8 +20,8 @@ module.exports = (resolve, rootDir, isEjecting) => {
   const config = {
     collectCoverageFrom: ['src/**/*.{js,jsx}'],
     moduleNameMapper: {
-      '^.+\\.(?!(js|jsx|css|json)$)[^\\.]+$': resolve('config/jest/FileStub.js'),
-      '^.+\\.(css|less|scss|sass|styl)$': resolve('config/jest/CSSStub.js')
+      '^.+\\.(css|less|scss|sass|styl)$': 'identity-obj-proxy',
+      '^.+\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': resolve('config/jest/FileStub.js')
     },
     setupFiles: [resolve('config/polyfills.js')],
     setupTestFrameworkScriptFile: setupTestsFile,
