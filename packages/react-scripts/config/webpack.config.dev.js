@@ -18,6 +18,7 @@ var WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeMod
 var getClientEnvironment = require('./env');
 var paths = require('./paths');
 var getCustomConfig = require('./get-custom-config');
+var mergeCustomConfig = require('./merge-custom-config');
 
 // @remove-on-eject-begin
 // `path` is not used after eject - see https://github.com/facebookincubator/create-react-app/issues/1174
@@ -39,7 +40,7 @@ var customConfig = getCustomConfig(false);
 // This is the development configuration.
 // It is focused on developer experience and fast rebuilds.
 // The production configuration is different and lives in a separate file.
-module.exports = {
+module.exports = mergeCustomConfig({
   // You may want 'eval' instead if you prefer to see the compiled output in DevTools.
   // See the discussion in https://github.com/facebookincubator/create-react-app/issues/343.
   devtool: 'cheap-module-source-map',
@@ -239,4 +240,4 @@ module.exports = {
     net: 'empty',
     tls: 'empty'
   }
-};
+});

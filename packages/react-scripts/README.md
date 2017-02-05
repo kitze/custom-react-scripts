@@ -41,6 +41,17 @@ The generated project comes with SASS, LESS, and CSS modules support by default,
 - ```PORT=3015``` - change default port (supported in CRA by default)
 - ```OPEN_BROWSER=false``` - don't open browser after running webpack server
 
+### Additional Webpack Configuration
+
+You can add additional webpack configuration options by creating a file named `webpack.custom-config.js` in your app directory and exporting an object of the options to be added. For example, `sass-loader` can be configured by exporting `sassLoader` options:
+
+    var path = require('path');
+    module.exports = {
+      sassLoader: {
+        includePaths: [path.resolve(__dirname, "./src")]
+      }
+    }
+
 ### 🤔 Why?
 The ```create-react-app``` app doesn't allow user configuration and modifications for few reasons:
 
