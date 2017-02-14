@@ -1,6 +1,6 @@
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var cssModulesDev = '?modules&camelCase&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]';
-var cssModulesProd = '?modules&camelCase&-autoprefixer&importLoaders=1';
+var cssModulesDev = '?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]';
+var cssModulesProd = '?modules&-autoprefixer&importLoaders=1';
 
 module.exports = {
   'BABEL_STAGE_0': {
@@ -113,8 +113,13 @@ module.exports = {
   },
   'CSS_MODULES': {
     config: {
+<<<<<<< HEAD
+      dev: 'style!css?modules&camelCase&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss',
+      prod: 'style!css?modules&camelCase&-autoprefixer&importLoaders=1!postcss'
+=======
       dev: `style!css${cssModulesDev}!postcss`,
       prod: `style!css${cssModulesProd}!postcss`
+>>>>>>> Allow using css-modules with SASS, LESS and Stylus
     }
   }
 }
