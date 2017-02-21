@@ -20,23 +20,25 @@ module.exports = (resolve, rootDir, isEjecting) => {
   // TODO: I don't know if it's safe or not to just use / as path separator
   // in Jest configs. We need help from somebody with Windows to determine this.
   const config = {
-    collectCoverageFrom: ['src/**/*.{js,jsx}'],
+    moduleFileExtensions: ['js', 'jsx', 'json', 'ts', 'tsx'],
+    collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}'],
     setupFiles: [resolve('config/polyfills.js')],
     setupTestFrameworkScriptFile: setupTestsFile,
     testPathIgnorePatterns: [
       '<rootDir>[/\\\\](build|docs|node_modules|scripts)[/\\\\]'
     ],
     testEnvironment: 'node',
+    testRegex: '/(__tests__/.*|src/.*\\.(test|spec))\\.(js|jsx|ts|tsx)$',
     testURL: 'http://localhost',
     transform: {
-      '^.+\\.(js|jsx)$': isEjecting ?
+      '^.+\\.(js|jsx|ts|tsx)$': isEjecting ?
         '<rootDir>/node_modules/babel-jest'
         : resolve('config/jest/babelTransform.js'),
-      '^.+\\.(styl|sass|less|css)$': resolve('config/jest/cssTransform.js'),
-      '^(?!.*\\.(js|jsx|styl|sass|less|css|json)$)': resolve('config/jest/fileTransform.js'),
+      '^.+\\.(styl|sass|scss|less|css)$': resolve('config/jest/cssTransform.js'),
+      '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)$': resolve('config/jest/fileTransform.js'),
     },
     transformIgnorePatterns: [
-      '[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$'
+      '[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$'
     ],
     moduleNameMapper: {
       '^react-native$': 'react-native-web'

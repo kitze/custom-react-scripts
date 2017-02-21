@@ -94,10 +94,10 @@ module.exports = {
     // https://github.com/facebookincubator/create-react-app/issues/253
     fallback: paths.nodePaths,
     // These are the reasonable defaults supported by the Node ecosystem.
-    // We also include JSX as a common component filename extension to support
-    // some tools, although we do not recommend using it, see:
+    // We also include JSX / TSX as common component filename extensions to support
+    // some tools, although we do not recommend using them, see:
     // https://github.com/facebookincubator/create-react-app/issues/290
-    extensions: ['.js', '.json', '.jsx', ''],
+    extensions: ['.js', '.json', '.jsx', '.ts', '.tsx', ''],
     alias: {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
@@ -114,11 +114,16 @@ module.exports = {
   // @remove-on-eject-end
   module: {
     // First, run the linter.
-    // It's important to do this before Babel processes the JS.
+    // It's important to do this before Babel/TypeScript process the JS/TS.
     preLoaders: [
       {
         test: /\.(js|jsx)$/,
         loader: 'eslint',
+        include: paths.appSrc
+      },
+      {
+        test: /\.(ts|tsx)$/,
+        loader: 'tslint',
         include: paths.appSrc
       }
     ],
@@ -138,7 +143,7 @@ module.exports = {
       {
         exclude: [
           /\.html$/,
-          /\.(js|jsx)$/,
+          /\.(js|jsx|ts|tsx)$/,
           /\.css$/,
           /\.json$/,
           /\.svg$/
@@ -148,6 +153,13 @@ module.exports = {
           limit: 10000,
           name: 'static/media/[name].[hash:8].[ext]'
         }
+      },
+      // Process TS with TypeScript.
+      {
+        test: /\.(ts|tsx)$/,
+        include: paths.appSrc,
+        loader: 'awesome-typescript',
+        query: require('./typescript.prod')
       },
       // Process JS with Babel.
       {
@@ -202,6 +214,10 @@ module.exports = {
     // e.g. to enable no-console and no-debugger only in production.
     configFile: path.join(__dirname, '../.eslintrc'),
     useEslintrc: false
+  },
+  // Point TSLint to our predefined config.
+  tslint: {
+    configFile: path.join(__dirname, '../tslint.json')
   },
   // @remove-on-eject-end
   // We use PostCSS for autoprefixing only.

@@ -1,10 +1,12 @@
-# ☢ custom-react-scripts ☢
+# ☢ custom-react-scripts (with TypeScript) ☢
 Latest version of original react-scripts: **0.8.5**
 
 ### ⚠️ Disclaimer:
 > This is **not** a fork of ```create-react-app```. It's just a fork of ```react-scripts``` with simple babel/webpack modifications that can toggle extra features.
 
 The reason for this fork's existence is explained better in [this Medium article](https://medium.com/@kitze/configure-create-react-app-without-ejecting-d8450e96196a).
+
+*Additionally, TypeScript support has been added.*
 
 ### 💡Features:
 * Decorators
@@ -14,6 +16,12 @@ The reason for this fork's existence is explained better in [this Medium article
 * CSS modules
 
 **the features are optional and can be turned on/off individually*
+
+#### TypeScript
+
+TypeScript support has been enabled for `.ts` and `.tsx` files, using Babel to transpile into JavaScript. While this is
+currently not configurable, `.js` and `.jsx` files are still handled as normal, so TypeScript usage is optional.
+But why not, right ;)
 
 ### ❔How to use it
 ```create-react-app my-app --scripts-version custom-react-scripts```
