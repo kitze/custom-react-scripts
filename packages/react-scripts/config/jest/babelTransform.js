@@ -9,9 +9,28 @@
 const babelJest = require('babel-jest');
 const getCustomConfig = require('../get-custom-config');
 const customConfig = getCustomConfig(false);
+const tsc = require('typescript');
 
-module.exports = babelJest.createTransformer({
+const babelTransformer = babelJest.createTransformer({
   presets: [require.resolve('babel-preset-react-app')].concat(customConfig.presets),
   plugins: [].concat(customConfig.babelPlugins),
   babelrc: false
 });
+
+module.exports = {
+  process(src, path) {
+    if (path.endsWith('.ts') || path.endsWith('.tsx')) {
+      src = tsc.transpile(
+          src,
+          {
+            module: tsc.ModuleKind.CommonJS,
+            jsx: tsc.JsxEmit.React
+          },
+          path,
+          []
+      );
+    }
+
+    return babelTransformer.process(src, path);
+  }
+};
