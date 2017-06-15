@@ -39,7 +39,7 @@ The generated project comes with SASS, LESS, and CSS modules support by default,
 
 #### Others
 - ```PORT=3015``` - change default port (supported in CRA by default)
-- ```OPEN_BROWSER=false``` - don't open browser after running webpack server
+- ```BROWSER=false``` - don't open browser after running webpack server
 
 ### 🤔 Why?
 The ```create-react-app``` app doesn't allow user configuration and modifications for few reasons:
