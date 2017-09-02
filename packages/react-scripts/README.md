@@ -1,5 +1,5 @@
 # ☢ custom-react-scripts ☢
-Latest version of original react-scripts: **0.8.4**
+Latest version of original react-scripts: **1.0.11**
 
 ### ⚠️ Disclaimer:
 > This is **not** a fork of ```create-react-app```. It's just a fork of ```react-scripts``` with simple babel/webpack modifications that can toggle extra features.
@@ -9,9 +9,12 @@ The reason for this fork's existence is explained better in [this Medium article
 ### 💡Features:
 * Decorators
 * babel-preset-stage-0
-* LESS
-* SASS
+* Less
+* Sass
 * CSS modules
+* Sass modules
+* Less modules
+* Stylus modules
 
 **the features are optional and can be turned on/off individually*
 
@@ -20,7 +23,7 @@ The reason for this fork's existence is explained better in [this Medium article
 
 Modify the ```.env``` file in the root of the generated project, and add any of the configuration options below 👇 to enable that feature.
 
-The generated project comes with SASS, LESS, and CSS modules support by default, but you can remove them at any time by removing the options from the ```.env``` file.
+The generated project comes with every option turned on by default, but you can remove them at any time by removing the options from the ```.env``` file.
 
 ### 📝 Configuration options
 
@@ -29,17 +32,20 @@ The generated project comes with SASS, LESS, and CSS modules support by default,
 - ```REACT_APP_LESS=true``` - enable LESS support
 - ```REACT_APP_STYLUS=true``` - enable Stylus support
 - ```REACT_APP_CSS_MODULES``` - enable CSS modules
+- ```REACT_APP_SASS_MODULES``` - enable Sass modules
+- ```REACT_APP_LESS_MODULES``` - enable Less modules
+- ```REACT_APP_STYLUS_MODULES``` - enable Stylus modules
+
+Note: to use modules the file must be named in the following format: ```$name.module.$preprocessorName```.
+
+For example ```styles.module.css``` or ```header.module.sass``` or ```footer.module.less```, etc. Files that are not prefixed with module will be parsed normally.
 
 #### Babel
 - ```REACT_APP_BABEL_STAGE_0=true``` - enable stage-0 Babel preset
 - ```REACT_APP_DECORATORS=true``` - enable decorators support
 
-> ⚠️ Please note that the Babel features are highly experimental (especially stage-0) and still not a part of the ES specification.
-> Use them at your own risk of breaking backwards compatibility if they don't make the final version of the spec.
-
-#### Others
-- ```PORT=3015``` - change default port (supported in CRA by default)
-- ```OPEN_BROWSER=false``` - don't open browser after running webpack server
+#### Other
+- ```REACT_APP_WEBPACK_DASHBOARD=true``` - Enables connection to the[webpack-dashboard](https://github.com/FormidableLabs/electron-webpack-dashboard) Electron app (the app must be installed on local machine)
 
 ### 🤔 Why?
 The ```create-react-app``` app doesn't allow user configuration and modifications for few reasons:
@@ -56,7 +62,7 @@ The CRA team recently [added support](https://github.com/facebookincubator/creat
 
 From the original readme:
 > To define permanent environment vairables, create a file called .env in the root of your project:
-> REACT_APP_SECRET_CODE=abcdef
+> ```REACT_APP_SECRET_CODE=abcdef```
 
 I just added support for extra environment variables that actually turn on certain plugins, babel plugins, presets, and loaders in the webpack and babel configs of ```react-scripts```.
 
