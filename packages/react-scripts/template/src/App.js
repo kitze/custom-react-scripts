@@ -10,7 +10,7 @@ import './App.less';
 import './App.styl';
 
 // .graphql files
-import query from './app.gql';
+import appQuery from './app.gql';
 
 //modules
 import cssStyles from './First.module.css';
@@ -96,8 +96,8 @@ class App extends Component {
           <ul className="configs babel-configs">
             <li>
               <code>REACT_APP_GRAPHQL=true</code>
-              <span>- Enable .graphql files loader</span>
-              {console.log(query)}
+              <span>- Enable .graphql files loader </span>
+              {appQuery && appQuery.loc && <code>Enabled</code>}
             </li>
           </ul>
 
