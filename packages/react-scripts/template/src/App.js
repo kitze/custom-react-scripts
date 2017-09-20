@@ -9,6 +9,9 @@ import './App.scss';
 import './App.less';
 import './App.styl';
 
+// .graphql files
+import query from './app.gql';
+
 //modules
 import cssStyles from './First.module.css';
 import sassStyles from './Second.module.scss';
@@ -88,6 +91,16 @@ class App extends Component {
             </li>
           </ul>
 
+          <b>GraphQL</b>
+
+          <ul className="configs babel-configs">
+            <li>
+              <code>REACT_APP_GRAPHQL=true</code>
+              <span>- Enable .graphql files loader</span>
+              {console.log(query)}
+            </li>
+          </ul>
+
           <b>Other</b>
 
           <ul className="configs babel-configs">
@@ -102,7 +115,7 @@ class App extends Component {
                 >
                   webpack-dashboard
                 </a>{' '}
-                 (must be installed)
+                (must be installed)
               </span>
             </li>
           </ul>
