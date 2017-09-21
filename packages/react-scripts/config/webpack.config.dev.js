@@ -171,7 +171,7 @@ module.exports = {
           // Process JS with Babel.
           {
             test: /\.(js|jsx)$/,
-            exclude: /node_modules(?!\/@pearson-incubator)/,
+            exclude: path.join(__dirname, '/node_modules/@pearson-incubator/'),
             loader: require.resolve('babel-loader'),
             options: {
               babelrc: false,
