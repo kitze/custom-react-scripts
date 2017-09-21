@@ -23,6 +23,8 @@
 // This is dangerous as it hides accidentally undefined variables.
 // We blacklist the globals that we deem potentially confusing.
 // To use them, explicitly reference them, e.g. `window.name` or `window.status`.
+const path = require('path');
+
 var restrictedGlobals = [
   'addEventListener',
   'blur',
@@ -89,7 +91,7 @@ module.exports = {
 
   parser: 'babel-eslint',
 
-  plugins: ['import', 'flowtype', 'jsx-a11y', 'react'],
+  plugins: ['import', 'flowtype', 'jsx-a11y', 'react', 'graphql'],
 
   env: {
     browser: true,
@@ -293,5 +295,17 @@ module.exports = {
     'flowtype/define-flow-type': 'warn',
     'flowtype/require-valid-file-annotation': 'warn',
     'flowtype/use-flow-type': 'warn',
+
+    // https://github.com/apollographql/eslint-plugin-graphql
+    'graphql/template-strings': [
+      'error',
+      {
+        env: 'literal',
+        schemaJsonFilepath: path.resolve(
+          __dirname,
+          '../react-scripts/template/graphql.schema.json'
+        ),
+      },
+    ],
   },
 };

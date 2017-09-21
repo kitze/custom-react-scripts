@@ -1,0 +1,7 @@
+schema {
+    query: Test
+}
+
+type Test {
+    id: ID
+}
