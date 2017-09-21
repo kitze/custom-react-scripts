@@ -24,6 +24,7 @@
 // We blacklist the globals that we deem potentially confusing.
 // To use them, explicitly reference them, e.g. `window.name` or `window.status`.
 const path = require('path');
+const fs = require('fs');
 
 let restrictedGlobals = [
   'addEventListener',
@@ -94,13 +95,18 @@ const isGraphqlActivated = graphqlEnv.indexOf('true') !== -1;
 const graphqlRule = isGraphqlActivated
   ? {
       'graphql/template-strings': [
-        'error',
+        'warn',
         {
           env: 'literal',
-          schemaJsonFilepath: path.resolve(
-            __dirname,
-            '../react-scripts/template/graphql.schema.json'
-          ),
+          schemaString: fs
+            .readFileSync(
+              path.resolve(
+                __dirname,
+                '../react-scripts/template/schema.graphqls'
+              ),
+              'utf8'
+            )
+            .toString(),
         },
       ],
     }

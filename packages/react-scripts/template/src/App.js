@@ -10,7 +10,7 @@ import './App.less';
 import './App.styl';
 
 // .graphql files
-import appQuery from './app.gql';
+import appQuery from './app.graphql';
 
 //modules
 import cssStyles from './First.module.css';

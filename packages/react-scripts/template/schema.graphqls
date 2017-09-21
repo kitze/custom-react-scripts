@@ -1,0 +1,7 @@
+schema {
+  query: App
+}
+
+type App {
+    id: ID!
+}
