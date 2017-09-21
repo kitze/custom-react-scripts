@@ -161,7 +161,7 @@ module.exports = {
           },
           // Process JS with Babel.
           {
-            test: /\.(js|jsx)$/,
+            test: /\.(js|jsx|gql|graphql)$/,
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
             options: {
