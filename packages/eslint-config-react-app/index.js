@@ -106,9 +106,6 @@ const graphqlRule = isGraphqlActivated
     }
   : {};
 
-console.log(isGraphqlActivated);
-console.log(graphqlRule);
-
 // Initial plugins
 let plugins = ['import', 'flowtype', 'jsx-a11y', 'react'];
 
