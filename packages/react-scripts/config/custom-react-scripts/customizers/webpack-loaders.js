@@ -1,7 +1,9 @@
 const styleLoader = require('../webpack-config/style-loader');
+const graphqlLoaderConfig = require('../webpack-config/graphql-loader');
 const sassLoader = require.resolve('sass-loader');
 const lessLoader = require.resolve('less-loader');
 const stylusLoader = require.resolve('stylus-loader');
+const graphqlLoader = require.resolve('graphql-tag/loader');
 
 module.exports = {
   CSS: {
@@ -28,5 +30,8 @@ module.exports = {
   },
   CSS_MODULES: {
     get: styleLoader(undefined, /\.module\.css$/, undefined, true),
+  },
+  GRAPHQL: {
+    get: graphqlLoaderConfig(graphqlLoader, /\.(graphql|gql)$/, /node_modules/),
   },
 };

@@ -1,0 +1,12 @@
+schema {
+    query: Root
+}
+
+type Root {
+    app: App
+}
+
+type App {
+    id: ID!
+    name: String!
+}
