@@ -162,7 +162,7 @@ module.exports = {
           // Process JS with Babel.
           {
             test: /\.(js|jsx)$/,
-            exclude: /node_modules(?!\/@pearson-incubator)/,
+            exclude: path.join(__dirname, '/node_modules/@pearson-incubator/'),
             loader: require.resolve('babel-loader'),
             options: {
               babelrc: false,
@@ -171,6 +171,22 @@ module.exports = {
               ),
               plugins: customConfig.babelPlugins,
               compact: true,
+            },
+          },
+          {
+            test: /\.(js|jsx)$/,
+            exclude: path.join(__dirname, '/node_modules/@pearson-components/'),
+            loader: require.resolve('babel-loader'),
+            options: {
+              babelrc: false,
+              presets: [require.resolve('babel-preset-react-app')].concat(
+                customConfig.babelPresets
+              ),
+              plugins: customConfig.babelPlugins,
+              // This is a feature of `babel-loader` for webpack (not Babel itself).
+              // It enables caching results in ./node_modules/.cache/babel-loader/
+              // directory for faster rebuilds.
+              cacheDirectory: true,
             },
           },
           ...customConfig.webpackLoaders,
