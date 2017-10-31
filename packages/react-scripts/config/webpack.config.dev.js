@@ -185,6 +185,22 @@ module.exports = {
               cacheDirectory: true,
             },
           },
+          {
+            test: /\.(js|jsx)$/,
+            exclude: path.join(__dirname, '/node_modules/@pearson-components/'),
+            loader: require.resolve('babel-loader'),
+            options: {
+              babelrc: false,
+              presets: [require.resolve('babel-preset-react-app')].concat(
+                customConfig.babelPresets
+              ),
+              plugins: customConfig.babelPlugins,
+              // This is a feature of `babel-loader` for webpack (not Babel itself).
+              // It enables caching results in ./node_modules/.cache/babel-loader/
+              // directory for faster rebuilds.
+              cacheDirectory: true,
+            },
+          },
           ...customConfig.webpackLoaders,
           // "file" loader makes sure those assets get served by WebpackDevServer.
           // When you `import` an asset, you get its (virtual) filename.
