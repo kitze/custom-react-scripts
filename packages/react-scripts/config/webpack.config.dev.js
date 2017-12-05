@@ -33,7 +33,7 @@ const publicUrl = '';
 const env = getClientEnvironment(publicUrl);
 //Get custom configuration for injecting plugins, presets and loaders
 const customConfig = getCustomConfig(true);
-
+var poststylus = require('poststylus');
 // This is the development configuration.
 // It is focused on developer experience and fast rebuilds.
 // The production configuration is different and lives in a separate file.
@@ -122,6 +122,7 @@ module.exports = {
       new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson]),
     ],
   },
+  
   module: {
     strictExportPresence: true,
     rules: [
@@ -160,6 +161,22 @@ module.exports = {
           // "url" loader works like "file" loader except that it embeds assets
           // smaller than specified limit in bytes as data URLs to avoid requests.
           // A missing `test` is equivalent to a match.
+          
+          {
+          test: /\.styl$/,
+          use: [
+            'style-loader',
+            'css-loader',
+            {
+              loader: 'stylus-loader',
+              options: {
+                use: [require('poststylus')()],
+                use: [require('nib')()],
+                import: ['~nib/lib/nib/index.styl']
+              },
+            },
+          ]
+         },
           {
             test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
             loader: require.resolve('url-loader'),
@@ -201,6 +218,7 @@ module.exports = {
               cacheDirectory: true,
             },
           },
+         
           ...customConfig.webpackLoaders,
           // "file" loader makes sure those assets get served by WebpackDevServer.
           // When you `import` an asset, you get its (virtual) filename.

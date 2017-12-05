@@ -36,7 +36,7 @@ const publicUrl = publicPath.slice(0, -1);
 const env = getClientEnvironment(publicUrl);
 //Get custom configuration for injecting plugins, presets and loaders
 const customConfig = getCustomConfig(false);
-
+var poststylus = require('poststylus');
 // Assert this just to be safe.
 // Development builds of React are slow and not intended for production.
 if (env.stringified['process.env'].NODE_ENV !== '"production"') {
@@ -151,6 +151,23 @@ module.exports = {
         oneOf: [
           // "url" loader works just like "file" loader but it also embeds
           // assets smaller than specified size as data URLs to avoid requests.
+          {
+            test: /\.styl$/,
+            use: [
+              'style-loader',
+              'css-loader',
+              {
+                loader: 'stylus-loader',
+                options: {
+                  use: [require('poststylus')()],
+                  use: [require('nib')()],
+                  import: ['~nib/lib/nib/index.styl']
+                },
+              },
+            ]
+           
+           },
+          
           {
             test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
             loader: require.resolve('url-loader'),
