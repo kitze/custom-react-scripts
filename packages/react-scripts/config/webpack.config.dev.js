@@ -13,6 +13,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
@@ -21,6 +22,9 @@ const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
 const getCustomConfig = require('./custom-react-scripts/config');
+
+const annotationLibPath = path.join(__dirname, '/node_modules/pxe-annotation/demo/ann-plugin/output');
+
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -204,6 +208,22 @@ module.exports = {
           },
           {
             test: /\.(js|jsx)$/,
+            exclude: path.join(__dirname, '/node_modules/pxe-annotation/'),
+            loader: require.resolve('babel-loader'),
+            options: {
+              babelrc: false,
+              presets: [require.resolve('babel-preset-react-app')].concat(
+                customConfig.babelPresets
+              ),
+              plugins: customConfig.babelPlugins,
+              // This is a feature of `babel-loader` for webpack (not Babel itself).
+              // It enables caching results in ./node_modules/.cache/babel-loader/
+              // directory for faster rebuilds.
+              cacheDirectory: true,
+            },
+          },
+          {
+            test: /\.(js|jsx)$/,
             exclude: path.join(__dirname, '/node_modules/@pearson-components/'),
             loader: require.resolve('babel-loader'),
             options: {
@@ -253,6 +273,9 @@ module.exports = {
       inject: true,
       template: paths.appHtml,
     }),
+    new CopyWebpackPlugin([
+      { from: annotationLibPath, to: 'annotation-lib' }
+    ]),
     // Add module names to factory functions so they appear in browser profiler.
     new webpack.NamedModulesPlugin(),
     // Makes some environment variables available to the JS code, for example:

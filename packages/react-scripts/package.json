@@ -1,6 +1,6 @@
 {
   "name": "react-scripts-incubator",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Configuration and scripts for create-react-app",
   "repository": "kitze/custom-react-scripts",
   "license": "BSD-3-Clause",
@@ -32,6 +32,7 @@
     "babel-runtime": "6.23.0",
     "case-sensitive-paths-webpack-plugin": "2.1.1",
     "chalk": "1.1.3",
+    "copy-webpack-plugin": "^4.0.1",
     "css-loader": "0.28.4",
     "dotenv": "4.0.0",
     "eslint": "4.4.1",

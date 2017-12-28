@@ -13,6 +13,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
@@ -22,6 +23,8 @@ const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
 const getCustomConfig = require('./custom-react-scripts/config');
+
+const annotationLibPath = path.join(__dirname, '/node_modules/pxe-annotation/demo/ann-plugin/output');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -192,6 +195,22 @@ module.exports = {
           },
           {
             test: /\.(js|jsx)$/,
+            exclude: path.join(__dirname, '/node_modules/pxe-annotation/'),
+            loader: require.resolve('babel-loader'),
+            options: {
+              babelrc: false,
+              presets: [require.resolve('babel-preset-react-app')].concat(
+                customConfig.babelPresets
+              ),
+              plugins: customConfig.babelPlugins,
+              // This is a feature of `babel-loader` for webpack (not Babel itself).
+              // It enables caching results in ./node_modules/.cache/babel-loader/
+              // directory for faster rebuilds.
+              cacheDirectory: true,
+            },
+          },
+          {
+            test: /\.(js|jsx)$/,
             exclude: path.join(__dirname, '/node_modules/@pearson-components/'),
             loader: require.resolve('babel-loader'),
             options: {
@@ -252,6 +271,9 @@ module.exports = {
         minifyURLs: true,
       },
     }),
+    new CopyWebpackPlugin([
+      { from: annotationLibPath, to: 'annotation-lib' }
+    ]),
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.
     // It is absolutely essential that NODE_ENV was set to production here.
