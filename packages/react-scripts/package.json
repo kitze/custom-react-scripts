@@ -1,6 +1,6 @@
 {
   "name": "react-scripts-incubator",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Configuration and scripts for create-react-app",
   "repository": "kitze/custom-react-scripts",
   "license": "BSD-3-Clause",
@@ -52,8 +52,10 @@
     "nib": "1.1.0",
     "node-sass": "^4.5.3",
     "object-assign": "4.1.1",
+    "precss": "^2.0.0",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.6",
+    "postcss-constants": "^0.2.0",
     "poststylus": "^1.0.0",
     "promise": "8.0.1",
     "react-dev-utils": "^3.1.0",
