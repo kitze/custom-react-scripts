@@ -20,6 +20,7 @@ const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const paths = require('./paths');
+const locatePath = require('locate-path');
 const getClientEnvironment = require('./env');
 const getCustomConfig = require('./custom-react-scripts/config');
 
@@ -102,6 +103,11 @@ module.exports = {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
+      'assessment-client': path.resolve('./node_modules/@pearson-incubator/vega-viewer/node_modules/@pearson-incubator/assessment-client'),
+      'tdx-components': locatePath.sync([
+        path.resolve('./node_modules/@pearson-incubator/tdx-components'),
+        path.resolve('./node_modules/@pearson-incubator/vega-viewer/node_modules/@pearson-incubator/assessment-client/node_modules/@pearson-incubator/tdx-components')
+      ])
     },
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).
