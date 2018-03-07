@@ -5,7 +5,9 @@ module.exports = function mapObject(obj, fn, toArray) {
       return final;
     }
     if (toArray) {
-      final.push(result);
+      Array.isArray(result)
+        ? (final = final.concat(result))
+        : final.push(result);
     }
     final[key] = result;
     return final;

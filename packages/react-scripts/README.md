@@ -45,6 +45,10 @@ For example ```styles.module.css``` or ```header.module.sass``` or ```footer.mod
 - ```REACT_APP_BABEL_STAGE_0=true``` - enable stage-0 Babel preset
 - ```REACT_APP_DECORATORS=true``` - enable decorators support
 
+#### Webpack
+- ```REACT_APP_WEBPACK_AUTODLL_PLUGIN=true``` - enable [autodll-webpack-plugin](https://github.com/asfktz/autodll-webpack-plugin) and configure via the `dll` entry in package.json.
+- ```REACT_APP_WEBPACK_DLL_REFERENCE=true``` - injects [DllReferencePlugin](https://webpack.js.org/plugins/dll-plugin/#dllreferenceplugin) into the webpack plugins.  Configure via the `dllReference` entry in package.json.  You'll have to manually include the pre-built dlls in your html.
+
 #### Other
 - ```REACT_APP_WEBPACK_DASHBOARD=true``` - Enables connection to the[webpack-dashboard](https://github.com/FormidableLabs/electron-webpack-dashboard) Electron app (the app must be installed on local machine)
 
