@@ -20,5 +20,6 @@ module.exports = getCustomConfig = (isDev = true) => {
       true
     );
   });
+  console.log(JSON.stringify(result));
   return result;
 };

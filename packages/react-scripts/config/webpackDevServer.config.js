@@ -1,16 +1,7 @@
-// @remove-on-eject-begin
-/**
- * Copyright (c) 2015-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-// @remove-on-eject-end
 'use strict';
 
-const errorOverlayMiddleware = require('react-dev-utils/errorOverlayMiddleware');
+const errorOverlayMiddleware = require('react-error-overlay/middleware');
 const noopServiceWorkerMiddleware = require('react-dev-utils/noopServiceWorkerMiddleware');
-const ignoredFiles = require('react-dev-utils/ignoredFiles');
 const config = require('./webpack.config.dev');
 const paths = require('./paths');
 
@@ -73,10 +64,8 @@ module.exports = function(proxy, allowedHost) {
     quiet: true,
     // Reportedly, this avoids CPU overload on some systems.
     // https://github.com/facebookincubator/create-react-app/issues/293
-    // src/node_modules is not ignored to support absolute imports
-    // https://github.com/facebookincubator/create-react-app/issues/1065
     watchOptions: {
-      ignored: ignoredFiles(paths.appSrc),
+      ignored: /node_modules/,
     },
     // Enable HTTPS if the HTTPS environment variable is set to 'true'
     https: protocol === 'https',
@@ -89,7 +78,7 @@ module.exports = function(proxy, allowedHost) {
     },
     public: allowedHost,
     proxy,
-    before(app) {
+    setup(app) {
       // This lets us open files from the runtime error overlay.
       app.use(errorOverlayMiddleware());
       // This service worker file is effectively a 'no-op' that will reset any
