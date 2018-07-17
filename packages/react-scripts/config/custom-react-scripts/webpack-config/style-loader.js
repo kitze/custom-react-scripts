@@ -6,7 +6,7 @@ const localIdentName =
   process.env.REACT_APP_CSS_MODULE_CLASSNAME_TEMPLATE ||
   '[sha512:hash:base32]-[name]-[local]';
 
-module.exports = (loader, test, exclude, modules, options) => isDev => {
+module.exports = (loader, test, exclude, modules) => isDev => {
   let loaders = isDev
     ? [
         {
@@ -42,11 +42,9 @@ module.exports = (loader, test, exclude, modules, options) => isDev => {
   if (loader) {
     loaders.push({
       loader,
-      options: Object.assign(
-        {},
-        { sourceMap: shouldUseSourceMap },
-        options
-      ),
+      options: {
+        sourceMap: shouldUseSourceMap,
+      },
     });
   }
 
