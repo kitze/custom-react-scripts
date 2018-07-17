@@ -1,4 +1,5 @@
 {
+  "name": "bim-custom-react-scripts",
   "private": true,
   "workspaces": [
     "packages/*"
