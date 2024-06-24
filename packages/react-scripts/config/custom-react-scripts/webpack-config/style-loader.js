@@ -1,4 +1,3 @@
-const postCssOptions = require('../options/postcss-options');
 const extractTextPluginOptions = require('../options/extract-text-plugin-options');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
@@ -31,11 +30,7 @@ module.exports = (loader, test, exclude, modules, options) => isDev => {
     },
     {
       loader: require.resolve('postcss-loader'),
-      options: Object.assign(
-        {},
-        { sourceMap: shouldUseSourceMap },
-        postCssOptions
-      ),
+      options: Object.assign({}, { sourceMap: shouldUseSourceMap }),
     },
   ]);
 
